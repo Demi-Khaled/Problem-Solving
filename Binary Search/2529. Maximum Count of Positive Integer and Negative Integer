@@ -1,0 +1,36 @@
+class Solution {
+    public int maximumCount(int[] nums) {
+        if (nums[0] > 0 || nums[nums.length - 1]<0)
+            return nums.length;
+        if (nums[0] == 0 && nums[nums.length - 1] == 0)
+            return 0;
+        int posCount = 0;
+        int negCount = 0;
+        int left = 0, right = nums.length - 1;
+        while (left <= right) {
+            int mid = (left + right) / 2;
+            if (nums[mid] > 0) {
+                right = mid - 1;
+                posCount =mid;
+            } else
+                left = mid + 1;
+        }
+        if(posCount>0)
+            posCount=nums.length-posCount;
+        left = 0;
+        right = nums.length - 1;
+
+        while (left <= right) {
+            int mid = (left + right) / 2;
+            if (nums[mid] < 0) {
+                left = mid + 1;
+                negCount = mid;
+            } else
+                right = mid - 1;
+        }
+        if(negCount>0)
+            negCount=negCount+1;
+        return Math.max(posCount, negCount);
+
+    }
+}
